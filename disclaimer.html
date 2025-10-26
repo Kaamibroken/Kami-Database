@@ -3,42 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms & Conditions - Kami Flex</title>
+<title>Disclaimer - Kami Flex</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  body { transition: background-color 0.4s, color 0.4s; }
+  * { font-family: 'Poppins', sans-serif; }
+  body { transition: background-color .4s, color .4s; }
 </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col">
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen flex flex-col">
 
-<!-- Header -->
-<header class="flex items-center justify-between p-4 shadow-md bg-white dark:bg-gray-800">
-  <h1 class="text-2xl font-bold text-purple-600 dark:text-purple-400"> Kami Flex</h1>
-  <a href="index.html" class="text-sm text-gray-600 dark:text-gray-300 hover:underline">← Back Home</a>
+<!-- Header with Back Button -->
+<header class="bg-black/90 backdrop-blur-md p-4 shadow-md sticky top-0 z-50 flex items-center">
+  <button onclick="location.href='index.html'" class="mr-4 px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700">← Back</button>
+  <h1 class="text-center text-2xl font-bold flex-1 text-white">
+    Disclaimer
+  </h1>
 </header>
 
-<!-- Main Content -->
-<main class="flex-grow p-6 max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold text-center mb-4 text-purple-600 dark:text-purple-400">Terms & Conditions</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    By accessing and using Kami Flex, you agree to comply with these terms and conditions.
+<!-- Disclaimer Section -->
+<main class="flex-grow max-w-3xl mx-auto p-6 space-y-6">
+  <p class="text-black dark:text-gray-400">
+    The information provided on Kami Flex is for educational and informational purposes only. By using this platform, you agree to the following terms:
   </p>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    All tools and content provided are for educational and informational purposes only. We are not responsible for any misuse or legal issues arising from using the platform.
-  </p>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    You may not reproduce, distribute, or modify content from Kami Flex without prior written permission.
-  </p>
-  <p class="text-gray-700 dark:text-gray-300">
-    Kami Flex reserves the right to update these terms at any time. Continued use constitutes acceptance of any changes.
-  </p>
+
+  <section class="space-y-4">
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">1. Educational Purpose Only</h2>
+    <p class="text-black dark:text-gray-400">
+      All content on Kami Flex is intended for educational purposes. Users should not misuse the content for illegal or harmful activities.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">2. No Liability</h2>
+    <p class="text-black dark:text-gray-400">
+      Kami Flex is not responsible for any direct or indirect consequences arising from the use of this platform or its tools.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">3. External Links</h2>
+    <p class="text-black dark:text-gray-400">
+      Kami Flex may contain links to external websites. We do not control or endorse these sites and are not responsible for their content.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">4. Accuracy of Information</h2>
+    <p class="text-black dark:text-gray-400">
+      While we strive to provide accurate and up-to-date information, Kami Flex makes no guarantees regarding completeness or accuracy.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">5. Contact</h2>
+    <p class="text-black dark:text-gray-400">
+      For any questions regarding this disclaimer, contact us via <a href="contact.html" class="underline text-purple-400">Contact Page</a> or Telegram: <a href="https://t.me/Mr_Kaamii" class="underline text-purple-400">t.me/Mr_Kaamii</a>.
+    </p>
+  </section>
 </main>
 
 <!-- Footer -->
-<footer class="text-center py-5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+<footer class="text-center py-5 mt-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
   © 2025 Kami Flex | All rights reserved
 </footer>
 
 </body>
 </html>
-
