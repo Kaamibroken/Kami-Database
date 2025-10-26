@@ -4,26 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy - Kami Flex</title>
-<link rel="icon" href="https://i.postimg.cc/wvVLT7dR/card.jpg">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/wvVLT7dR/card.jpg">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#6b21a8">
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Poppins', sans-serif; }
+  body { transition: background-color .4s, color .4s; }
+</style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen flex flex-col">
 
-<header class="flex items-center justify-between p-4 shadow-md bg-white dark:bg-gray-800">
-  <h1 class="text-2xl font-bold text-purple-600 dark:text-purple-400">🌐 Kami Flex</h1>
-  <a href="index.html" class="px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-700">🏠 Home</a>
+<!-- Header with Back Button -->
+<header class="bg-black/40 backdrop-blur-md p-4 shadow-md sticky top-0 z-50 flex items-center">
+  <button onclick="location.href='index.html'" class="mr-4 px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700">← Back</button>
+
+  <h1 class="text-center text-2xl font-bold flex-1 text-white">
+    Privacy Policy
+  </h1>
 </header>
 
-<main class="p-6 max-w-3xl mx-auto">
-  <h2 class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-4">Privacy Policy</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    Kami Flex respects your privacy and does not collect personal information without consent. We do not share your data with third parties. All interactions on the platform are designed to protect your security and maintain confidentiality.
+<!-- Privacy Section -->
+<main class="flex-grow max-w-3xl mx-auto p-6 space-y-6">
+  <p class="text-black dark:text-gray-400">
+    Kami Flex respects your privacy. This page explains how we handle any information you provide.
   </p>
+
+  <section class="space-y-4">
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">1. Personal Data</h2>
+    <p class="text-black dark:text-gray-400">
+      Kami Flex does not collect personal information unless you voluntarily submit it (e.g., via the contact form or comments).
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">2. Cookies</h2>
+    <p class="text-black dark:text-gray-400">
+      We may use cookies for basic site functionality and analytics. Cookies do not contain personal information.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">3. Third-Party Services</h2>
+    <p class="text-black dark:text-gray-400">
+      Kami Flex may display ads from third-party providers (e.g., Google AdSense). These providers may use cookies to deliver relevant ads.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">4. Comment Data</h2>
+    <p class="text-black dark:text-gray-400">
+      If you leave a comment, your name and message are stored locally on the site for display. We do not share this information.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">5. Contact</h2>
+    <p class="text-black dark:text-gray-400">
+      For any questions about privacy, contact us via <a href="contact.html" class="underline text-purple-400">Contact Page</a> or on Telegram: <a href="https://t.me/Mr_Kaamii" class="underline text-purple-400">t.me/Mr_Kaamii</a>.
+    </p>
+
+    <h2 class="font-bold text-purple-600 dark:text-purple-400">6. General Usage</h2>
+    <p class="text-black dark:text-gray-400">
+      By using Kami Flex, you agree to our privacy practices. We only use necessary cookies or technical data to ensure smooth operation of the platform.
+    </p>
+  </section>
 </main>
 
+<!-- Footer -->
 <footer class="text-center py-5 mt-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
   © 2025 Kami Flex | All rights reserved
 </footer>
