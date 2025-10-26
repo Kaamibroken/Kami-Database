@@ -49,8 +49,8 @@ const cards = [
     gradient: "from-purple-400 to-indigo-600"
   },
   {
-    title: "📱 SMS Bomber",
-    desc: "Test your SMS sending tools with Pakistan Number SMS Bomber. Use responsibly for educational and testing purposes only. Unlimited prank features unlocked.",
+    title: "📱 SMS TOOL",
+    desc: "Test your SMS sending tools with Pakistan Number SMS TOOL. Use responsibly for educational and testing purposes only. Unlimited prank features unlocked.",
     img: "images/sms.png",
     link: "sms.html",
     gradient: "from-red-500 to-pink-500"
