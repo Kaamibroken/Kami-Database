@@ -1,16 +1,74 @@
 const cards = [
-  { title: "🎵 Jazz Free TV", desc: "Watch free live Jazz channels and entertainment shows.", img: "images/jazz.png", link: "jazztv.html", gradient: "from-purple-500 to-indigo-500" },
-  { title: "📱 Zong Free TV", desc: "Stream your favorite channels anytime with Zong TV.", img: "images/zong.png", link: "zong.html", gradient: "from-green-500 to-blue-500" },
-  { title: "💻 RDP Trial", desc: "Get free RDP trial on AppOnFly.", img: "images/rdp.png", link: "https://app.apponfly.com/trial", gradient: "from-purple-500 to-indigo-500" },
-  { title: "📱 Database 2022", desc: "Access updated SIM and database tools.", img: "images/database.png", link: "database.html", gradient: "from-pink-500 to-red-500" },
-  { title: "✅ Ads Check", desc: "Check your ad placements and stats.", img: "images/zong.png", link: "ads.html", gradient: "from-yellow-400 to-orange-500" },
-  { title: "🗃️ Free Internet Files", desc: "Download free internet files quickly.", img: "images/file.png", link: "file.html", gradient: "from-teal-400 to-cyan-500" },
-  { title: "⚡ Temp Mail ⚡", desc: "Generate temporary email addresses.", img: "images/temp.png", link: "temp.html", gradient: "from-purple-400 to-indigo-600" },
-  { title: "📱 SMS Bomber", desc: "Test SMS sending for educational purposes.", img: "images/sms.png", link: "sms.html", gradient: "from-red-500 to-pink-500" },
-  { title: "🤖 AI FUTURE", desc: "Generate images, text, and more with AI.", img: "images/ai.png", link: "ai.html", gradient: "from-blue-500 to-purple-500" },
-
-  // ✅ New Tamasha Packages card
-  { title: "📱 Tamasha Packages", desc: "Activate your Tamasha packages easily with OTP.", img: "images/tamsha.png", link: "tamsha.html", gradient: "from-pink-500 to-yellow-400" },
+  {
+    title: "🎵 Jazz Free TV",
+    desc: "Watch Pakistan’s top Jazz Free TV channels, live entertainment, and news shows without load. Enjoy unlimited access to movies, sports, and drama channels in one tap.",
+    img: "images/jazz.png",
+    link: "jazztv.html",
+    gradient: "from-purple-500 to-indigo-500"
+  },
+  {
+    title: "📱 Zong Free TV",
+    desc: "Stream your favorite Pakistani TV channels using Zong’s Free TV service. No balance required! Watch dramas, sports, and news 24/7 with high-speed streaming.",
+    img: "images/zong.png",
+    link: "zong.html",
+    gradient: "from-green-500 to-blue-500"
+  },
+  {
+    title: "💻 RDP Trial",
+    desc: "Get a free Windows RDP trial via AppOnFly. Perfect for developers, students, and professionals — run Windows or test software online without installation.",
+    img: "images/rdp.png",
+    link: "https://app.apponfly.com/trial",
+    gradient: "from-purple-500 to-indigo-500"
+  },
+  {
+    title: "🗃️ Pak DATABASE",
+    desc: "Access All Pakistan SIM Information and CNIC database tools. Check number details, owner info, and more — updated and fast. Use responsibly for verification.",
+    img: "images/database.png",
+    link: "database.html",
+    gradient: "from-pink-500 to-red-500"
+  },
+  {
+    title: "✅ Ads Check",
+    desc: "Monitor your ad placements, performance, and clicks easily. Useful for bloggers and creators using AdSense or other ad networks. Track every impression in real time.",
+    img: "images/zong.png",
+    link: "ads.html",
+    gradient: "from-yellow-400 to-orange-500"
+  },
+  {
+    title: "🗂️ Free Internet Files",
+    desc: "Download free internet configuration files for Jazz, Zong, and other Pakistani networks. Fast, secure, and daily updated for VPNs and network tweaks.",
+    img: "images/file.png",
+    link: "file.html",
+    gradient: "from-teal-400 to-cyan-500"
+  },
+  {
+    title: "⚡ Temp Mail ⚡",
+    desc: "Generate temporary email addresses to sign up anywhere without using your personal Gmail. Full features unlocked — create, copy, and receive mail instantly.",
+    img: "images/temp.png",
+    link: "temp.html",
+    gradient: "from-purple-400 to-indigo-600"
+  },
+  {
+    title: "📱 SMS Bomber",
+    desc: "Test your SMS sending tools with Pakistan Number SMS Bomber. Use responsibly for educational and testing purposes only. Unlimited prank features unlocked.",
+    img: "images/sms.png",
+    link: "sms.html",
+    gradient: "from-red-500 to-pink-500"
+  },
+  {
+    title: "🤖 AI TOOL",
+    desc: "All-in-one AI tools hub — generate images, write posts, code, and more with AI Future. Unlimited creative tools unlocked 🔓 for your smart ideas and projects.",
+    img: "images/ai.png",
+    link: "ai.html",
+    gradient: "from-blue-500 to-purple-500"
+  },
+  {
+    title: "📱 Tamasha Packages",
+    desc: "Activate Jazz Tamasha Unlimited Packages free without load! One OTP per package, simple activation, and non-stop entertainment in the Tamasha app.",
+    img: "images/tamsha.png",
+    link: "tamsha.html",
+    gradient: "from-pink-500 to-yellow-400"
+  }
 ];
 
 // Grab card container and search box
@@ -18,7 +76,7 @@ const cardContainer = document.getElementById('cardContainer');
 const searchBox = document.getElementById('searchBox');
 
 // Function to render cards (with search filter)
-function renderCards(filter=''){
+function renderCards(filter = '') {
   cardContainer.innerHTML = '';
   cards
     .filter(card => card.title.toLowerCase().includes(filter.toLowerCase()))
