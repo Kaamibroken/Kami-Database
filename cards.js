@@ -68,6 +68,13 @@ const cards = [
     img: "images/tamsha.png",
     link: "tamsha.html",
     gradient: "from-pink-500 to-yellow-400"
+  },
+  {
+    title: "🚀 Kami Flex Application",
+    desc: "Download the official Kami Flex App — All-in-One Pakistani Tools: Jazz & Zong Free TV, Tamasha Packages, Database, and AI Tools in one app.",
+    img: "images/app.png",
+    link: "https://apk.e-droid.net/apk_t/app3174234_8171.apk?v=15",
+    gradient: "from-cyan-500 to-purple-500"
   }
 ];
 
