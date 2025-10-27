@@ -4,6 +4,7 @@
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "cards.js", "use": "@vercel/static" },
     { "src": "sitemap.xml", "use": "@vercel/static" },
+    { "src": "robots.txt", "use": "@vercel/static" },
     { "src": "googlec78bbe1045b011fe.html", "use": "@vercel/static" },
     { "src": "tool.html", "use": "@vercel/static" },
     { "src": "jazztv.html", "use": "@vercel/static" },
@@ -78,6 +79,7 @@
     { "src": "/tamsha", "dest": "/tamsha.html" },
     { "src": "/", "dest": "/contact.html" },
     { "src": "/", "dest": "/terms.html" },
+    { "src": "/", "dest": "/robots.txt" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
