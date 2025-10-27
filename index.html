@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kami Flex - Home</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kami Flex — All-in-One Tools</title>
 
 <!-- ✅ AdSense Verification -->
 <meta name="google-adsense-account" content="ca-pub-3726211792846627">
@@ -30,173 +30,174 @@
 </script>
 
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  body, header, footer, .sidebar, .card {
-    transition: background-color .4s ease, color .4s ease;
-  }
-  .card {
-    transition: transform .3s ease, box-shadow .3s ease;
-    cursor: pointer;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    background-color: #f3f3f3;
-    color: #1f2937;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
-  }
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,.15);
-  }
-  .sidebar { 
-    transition: left .3s ease; 
-    position: fixed; top:0; left:-260px; width:250px; height:100%; z-index:50; 
-    backdrop-filter: blur(12px); 
-    background-color: white; 
-  }
+  * { font-family: 'Poppins', sans-serif; }
+  body { background: linear-gradient(to bottom right,#ff000000,#ff000000); color: white; transition: background-color .4s ease, color .4s ease; }
+  .card { transition: transform .3s ease, box-shadow .3s ease; cursor: pointer; padding: 1rem; border-radius: 0.75rem; background-color: #f3f3f3; color: #1f2937; text-align: center; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,.15); }
+  .sidebar { transition: left .3s ease; position: fixed; top:0; left:-260px; width:250px; height:100%; z-index:50; backdrop-filter: blur(12px); background-color: white; }
   .sidebar.open { left:0; }
   input, textarea { border: 1px solid; border-radius: 0.5rem; padding: 0.25rem 0.5rem; }
 </style>
 </head>
 
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+<body class="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 
-<!-- Header -->
-<header class="flex items-center justify-between p-4 shadow-md bg-white dark:bg-gray-800">
-  <button id="menuBtn" class="text-2xl">☰</button>
-  <h1 class="text-2xl font-bold text-purple-600 dark:text-purple-400">🌐 Kami Flex</h1>
-  <input id="searchBox" type="text" placeholder="Search..." class="px-3 py-1 rounded-lg w-40 sm:w-64 text-sm bg-gray-100 dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600">
-</header>
+  <!-- Header -->
+  <header class="bg-black/40 backdrop-blur-md p-4 shadow-lg sticky top-0 z-50 flex justify-between items-center">
+    <button id="menuBtn" class="text-2xl">☰</button>
+    <div class="text-center flex-1">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-green-500 text-transparent bg-clip-text">
+        Kami Flex — Free Pakistan Tools
+      </h1>
+      <p class="text-gray-600 text-sm mt-1">All-in-One Platform: TV, AI, Database, Internet Tools, & More</p>
+    </div>
+    <input id="searchBox" type="text" placeholder="Search tools..."
+      class="px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-cyan-400 focus:outline-none w-40 sm:w-64 text-sm">
+  </header>
 
-<!-- Sidebar -->
-<aside id="sidebar" class="sidebar shadow-lg dark:bg-gray-800">
-  <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-    <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400">Menu</h2>
-    <button id="closeSidebar" class="text-lg font-bold">❌</button>
-  </div>
-  <nav class="p-4 space-y-4">
-    <a href="about.html" class="block text-lg hover:text-purple-400 sidebar-link">ℹ️ About</a>
-    <a href="disclaimer.html" class="block text-lg hover:text-purple-400 sidebar-link">⚖️ Disclaimer</a>
-    <a href="privacy.html" class="block text-lg hover:text-purple-400 sidebar-link">🔒 Privacy Policy</a>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar shadow-lg dark:bg-gray-800">
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+      <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400">Menu</h2>
+      <button id="closeSidebar" class="text-lg font-bold">❌</button>
+    </div>
     <a href="https://t.me/Mr_Kaamii" target="_blank" class="block text-lg hover:text-purple-400 sidebar-link">📞 Contact</a>
-  </nav>
-</aside>
+    <nav class="p-4 space-y-4">
+      <a href="about.html" class="block text-lg hover:text-purple-400 sidebar-link">ℹ️ About</a>
+      <a href="disclaimer.html" class="block text-lg hover:text-purple-400 sidebar-link">⚖️ Disclaimer</a>
+      <a href="privacy.html" class="block text-lg hover:text-purple-400 sidebar-link">🔒 Privacy Policy</a>
+      <div class="mt-6 space-y-2">
+    <a href="https://t.me/Kami_Flex2" target="_blank"
+       class="block text-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      🔗 Join Telegram Channel
+    </a>
+    <a href="https://whatsapp.com/channel/0029VbByUzNGk1G13WWbbW3M" target="_blank"
+       class="block text-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+      💬 Follow WhatsApp Channel
+    </a>
+  </div>
+</nav>
+  </aside>
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 hidden z-40"></div>
 
-<!-- Overlay -->
-<div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 hidden z-40"></div>
+  <!-- Info Section -->
+  <section class="text-center text-gray-600 px-6 mt-6">
+    <p>Kami Flex offers all-in-one Pakistani tools — from free TV streaming to AI and database lookup.</p>
+    <p>Everything is organized in one place for easy access. 100% safe & educational purpose only.</p>
+  </section>
 
-<!-- Main Cards -->
-<main class="p-6">
+  <!-- Cards -->
+  <main class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-6" id="cardContainer"></main>
+
+  <!-- Telegram Join -->
   <div class="text-center mb-4">
     <a href="https://t.me/Kami_Flex2" target="_blank" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
       🔗 Join Telegram Channel
     </a>
   </div>
-  <h2 class="text-center text-2xl font-bold mb-6">💕 Welcome Back Kami Flex 💕</h2>
-  <div id="cardContainer" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
-</main>
 
-<!-- AdSense Slot - Footer ke just upar -->
-<div class="p-6 text-center">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627"
-       crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-format="autorelaxed"
-       data-ad-client="ca-pub-3726211792846627"
-       data-ad-slot="7234614494"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-<!-- Comment Section -->
-<div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg my-6 max-w-2xl mx-auto">
-  <h3 class="text-lg font-bold mb-4 text-purple-600 dark:text-purple-400">💬 Leave a Comment</h3>
-  <input id="commentName" type="text" placeholder="Your Name" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-  <textarea id="commentMessage" placeholder="Your Comment" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
-  <button onclick="postComment()" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Post Comment</button>
-
-  <div id="commentsContainer" class="mt-4 space-y-4"></div>
-</div>
-
-<!-- Footer -->
-<footer class="text-center py-5 mt-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
-  © 2025 Kami Flex | All rights reserved
-</footer>
-
-<!-- Modal -->
-<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-11/12 text-gray-900 dark:text-white">
-    <h2 id="modalTitle" class="text-xl font-bold mb-2 text-purple-600 dark:text-purple-400"></h2>
-    <p id="modalContent" class="text-sm"></p>
-    <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Close</button>
+  <!-- AdSense Slot -->
+  <div class="p-6 text-center">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3726211792846627" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="autorelaxed"
+         data-ad-client="ca-pub-3726211792846627"
+         data-ad-slot="7234614494"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-</div>
 
-<!-- Scripts -->
-<script src="cards.js"></script>
-<script>
-  // Sidebar
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  const menuBtn = document.getElementById('menuBtn');
-  const closeBtn = document.getElementById('closeSidebar');
-  const sidebarLinks = document.querySelectorAll(".sidebar-link");
+  <!-- Comment Section -->
+  <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg my-6 max-w-2xl mx-auto">
+    <h3 class="text-lg font-bold mb-4 text-purple-600 dark:text-purple-400">💬 Leave a Comment</h3>
+    <input id="commentName" type="text" placeholder="Your Name" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+    <textarea id="commentMessage" placeholder="Your Comment" class="w-full mb-2 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
+    <button onclick="postComment()" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">Post Comment</button>
+    <div id="commentsContainer" class="mt-4 space-y-4"></div>
+  </div>
 
-  menuBtn.addEventListener('click', ()=>{
-    sidebar.classList.add('open');
-    overlay.classList.remove('hidden');
-  });
-  closeBtn.addEventListener('click', closeSide);
-  overlay.addEventListener('click', closeSide);
-  sidebarLinks.forEach(link => link.addEventListener('click', closeSide));
-  function closeSide(){ sidebar.classList.remove('open'); overlay.classList.add('hidden'); }
+  <!-- Footer -->
+  <footer class="mt-auto text-center text-sm text-gray-400 py-6 border-t border-gray-800">
+    <p>© 2025 Kami Flex. All Rights Reserved.</p>
+    <p>
+      <a href="privacy.html" class="underline">Privacy Policy</a> |
+      <a href="terms.html" class="underline">Terms</a> |
+      <a href="contact.html" class="underline">Contact</a>
+    </p>
+  </footer>
 
-  // Modal
-  const modal = document.getElementById('modal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalContent = document.getElementById('modalContent');
-  function openModal(type){
-    modal.classList.remove('hidden');
-    if(type==='about'){
-      modalTitle.textContent = 'About Kami Flex';
-      modalContent.textContent = 'Kami Flex is a modern platform offering digital tools, entertainment, and learning resources. Explore tech, AI, and fun projects.';
-    } else if(type==='disclaimer'){
-      modalTitle.textContent = 'Disclaimer';
-      modalContent.textContent = 'All content is for educational purposes only.';
-    } else if(type==='privacy'){
-      modalTitle.textContent = 'Privacy Policy';
-      modalContent.textContent = 'Kami Flex does not store your personal data.';
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-11/12 text-gray-900 dark:text-white">
+      <h2 id="modalTitle" class="text-xl font-bold mb-2 text-purple-600 dark:text-purple-400"></h2>
+      <p id="modalContent" class="text-sm"></p>
+      <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Close</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="cards.js"></script>
+  <script>
+    // Sidebar
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeSidebar');
+    const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+    menuBtn.addEventListener('click', ()=>{
+      sidebar.classList.add('open');
+      overlay.classList.remove('hidden');
+    });
+    closeBtn.addEventListener('click', closeSide);
+    overlay.addEventListener('click', closeSide);
+    sidebarLinks.forEach(link => link.addEventListener('click', closeSide));
+    function closeSide(){ sidebar.classList.remove('open'); overlay.classList.add('hidden'); }
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    function openModal(type){
+      modal.classList.remove('hidden');
+      if(type==='about'){
+        modalTitle.textContent = 'About Kami Flex';
+        modalContent.textContent = 'Kami Flex is a modern platform offering digital tools, entertainment, and learning resources. Explore tech, AI, and fun projects.';
+      } else if(type==='disclaimer'){
+        modalTitle.textContent = 'Disclaimer';
+        modalContent.textContent = 'All content is for educational purposes only.';
+      } else if(type==='privacy'){
+        modalTitle.textContent = 'Privacy Policy';
+        modalContent.textContent = 'Kami Flex does not store your personal data.';
+      }
     }
-  }
-  function closeModal(){ modal.classList.add('hidden'); }
+    function closeModal(){ modal.classList.add('hidden'); }
 
-  // Comment Function
-  function postComment() {
-    const name = document.getElementById('commentName').value.trim();
-    const message = document.getElementById('commentMessage').value.trim();
-    if(!name || !message){
-      alert("Please enter both name and comment.");
-      return;
+    // Comment Function
+    function postComment() {
+      const name = document.getElementById('commentName').value.trim();
+      const message = document.getElementById('commentMessage').value.trim();
+      if(!name || !message){
+        alert("Please enter both name and comment.");
+        return;
+      }
+
+      const container = document.getElementById('commentsContainer');
+      const commentDiv = document.createElement('div');
+      commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
+      commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
+      container.prepend(commentDiv);
+      
+      document.getElementById('commentName').value = '';
+      document.getElementById('commentMessage').value = '';
     }
 
-    const container = document.getElementById('commentsContainer');
-    const commentDiv = document.createElement('div');
-    commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
-    commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
-
-    container.prepend(commentDiv);
-    
-    document.getElementById('commentName').value = '';
-    document.getElementById('commentMessage').value = '';
-  }
-
-  // Dark mode auto
-  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-    document.body.classList.add('dark');
-  }
-</script>
+    // Dark mode auto
+    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+      document.body.classList.add('dark');
+    }
+  </script>
 </body>
 </html>
