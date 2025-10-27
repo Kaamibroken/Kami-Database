@@ -73,7 +73,7 @@ const cards = [
     title: "🚀 Kami Flex Application",
     desc: "Download the official Kami Flex App — All-in-One Pakistani Tools: Jazz & Zong Free TV, Tamasha Packages, Database, and AI Tools in one app.",
     img: "images/app.png",
-    link: "https://www.mediafire.com/file/hde03gaafrir888/Kami_Flex.apk/file",
+    link: "https://www.mediafire.com/file/qefnrfhm006dsyh/Kami_Flex_9.8.apk/file",
     gradient: "from-cyan-500 to-purple-500"
   }
 ];
