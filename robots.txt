@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kami-database.vercel.app/sitemap.xml
