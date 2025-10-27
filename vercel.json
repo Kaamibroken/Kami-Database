@@ -37,6 +37,8 @@
     { "src": "about.html", "use": "@vercel/static" },
     { "src": "tamsha.html", "use": "@vercel/static" },
     { "src": "tamsha.js", "use": "@vercel/static" },
+    { "src": "terms.html", "use": "@vercel/static" },
+    { "src": "contact.html", "use": "@vercel/static" },
     { "src": "database.html", "use": "@vercel/static" }
   ],
   "routes": [
@@ -74,6 +76,8 @@
     { "src": "/about", "dest": "/about.html" },
     { "src": "/tamsha", "dest": "/tamsha.js" },
     { "src": "/tamsha", "dest": "/tamsha.html" },
+    { "src": "/", "dest": "/contact.html" },
+    { "src": "/", "dest": "/terms.html" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
