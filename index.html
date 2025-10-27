@@ -9,7 +9,7 @@
   })(window,document,'script','dataLayer','GTM-5MKNJXLC');</script>
   <!-- End Google Tag Manager -->
 
-  <!-- ✅ Google Site Verification (Meta + Alternate Format) -->
+  <!-- ✅ Google Site Verification -->
   <meta name="google-site-verification" content="3DEOrhCLSVngIw-MdmrWzSR1xIZjl02YrzOvwGUBM2o" />
   <meta name="google-site-verification" content="jVQBsphyC_TuOUwLW6bQ4rZPLpL4QbSMtFqUXmt50mI" />
 
@@ -30,7 +30,7 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#6b21a8">
 
-  <!-- ✅ Organization Schema for Google Logo Display -->
+  <!-- ✅ Organization Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,7 +45,7 @@
   }
   </script>
 
-  <!-- ✅ Google tag (gtag.js) -->
+  <!-- ✅ Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0T09FH5Y3H"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -72,7 +72,6 @@
   <!-- ✅ Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MKNJXLC"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Header -->
   <header class="bg-black/40 backdrop-blur-md p-4 shadow-lg sticky top-0 z-50 flex justify-between items-center">
@@ -118,6 +117,19 @@
     <p>Everything is organized in one place for easy access. 100% safe & educational purpose only.</p>
   </section>
 
+  <!-- ✅ AdSense In-Article Ad -->
+  <div class="my-6 text-center">
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-3726211792846627"
+         data-ad-slot="8144511102"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <!-- Cards -->
   <main class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-6" id="cardContainer"></main>
 
@@ -159,61 +171,48 @@
   <!-- Scripts -->
   <script src="cards.js"></script>
   <script>
-    // Sidebar
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuBtn = document.getElementById('menuBtn');
     const closeBtn = document.getElementById('closeSidebar');
     const sidebarLinks = document.querySelectorAll(".sidebar-link");
-
-    menuBtn.addEventListener('click', ()=>{
-      sidebar.classList.add('open');
-      overlay.classList.remove('hidden');
-    });
+    menuBtn.addEventListener('click', ()=>{sidebar.classList.add('open');overlay.classList.remove('hidden');});
     closeBtn.addEventListener('click', closeSide);
     overlay.addEventListener('click', closeSide);
     sidebarLinks.forEach(link => link.addEventListener('click', closeSide));
     function closeSide(){ sidebar.classList.remove('open'); overlay.classList.add('hidden'); }
 
-    // Modal
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modalTitle');
     const modalContent = document.getElementById('modalContent');
     function openModal(type){
       modal.classList.remove('hidden');
       if(type==='about'){
-        modalTitle.textContent = 'About Kami Flex';
-        modalContent.textContent = 'Kami Flex is a modern platform offering digital tools, entertainment, and learning resources. Explore tech, AI, and fun projects.';
+        modalTitle.textContent='About Kami Flex';
+        modalContent.textContent='Kami Flex is a modern platform offering digital tools, entertainment, and learning resources.';
       } else if(type==='disclaimer'){
-        modalTitle.textContent = 'Disclaimer';
-        modalContent.textContent = 'All content is for educational purposes only.';
+        modalTitle.textContent='Disclaimer';
+        modalContent.textContent='All content is for educational purposes only.';
       } else if(type==='privacy'){
-        modalTitle.textContent = 'Privacy Policy';
-        modalContent.textContent = 'Kami Flex does not store your personal data.';
+        modalTitle.textContent='Privacy Policy';
+        modalContent.textContent='Kami Flex does not store your personal data.';
       }
     }
     function closeModal(){ modal.classList.add('hidden'); }
 
-    // Comment Function
-    function postComment() {
-      const name = document.getElementById('commentName').value.trim();
-      const message = document.getElementById('commentMessage').value.trim();
-      if(!name || !message){
-        alert("Please enter both name and comment.");
-        return;
-      }
-
-      const container = document.getElementById('commentsContainer');
-      const commentDiv = document.createElement('div');
-      commentDiv.className = "p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
-      commentDiv.innerHTML = `<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
+    function postComment(){
+      const name=document.getElementById('commentName').value.trim();
+      const message=document.getElementById('commentMessage').value.trim();
+      if(!name||!message){alert("Please enter both name and comment.");return;}
+      const container=document.getElementById('commentsContainer');
+      const commentDiv=document.createElement('div');
+      commentDiv.className="p-3 bg-white dark:bg-gray-700 rounded shadow-sm";
+      commentDiv.innerHTML=`<strong class="text-purple-600 dark:text-purple-400">${name}</strong>: <span>${message}</span>`;
       container.prepend(commentDiv);
-      
-      document.getElementById('commentName').value = '';
-      document.getElementById('commentMessage').value = '';
+      document.getElementById('commentName').value='';
+      document.getElementById('commentMessage').value='';
     }
 
-    // Dark mode auto
     if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
       document.body.classList.add('dark');
     }
