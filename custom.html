@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kami Flex Custom Mail</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { font-family: 'Poppins', sans-serif; }
+.card {
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+.loader {
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top: 3px solid #00ffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.glow-text { text-shadow: 0 0 15px rgba(0,255,255,0.8); }
+#copyPopup {
+  position: fixed;
+  top: 20px; right: 20px;
+  background: linear-gradient(90deg,#00ffff,#00ff99);
+  color: black; padding: 8px 16px;
+  border-radius: 10px; font-weight: bold;
+  box-shadow: 0 0 20px rgba(0,255,255,0.6);
+  opacity: 0; transform: translateY(-15px);
+  transition: all .4s ease;
+}
+#copyPopup.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-6">
+
+<!-- ✅ Popup -->
+<div id="copyPopup">✅ Copied!</div>
+
+<div class="card p-6 rounded-2xl w-full max-w-md space-y-5 text-center">
+  <h1 class="text-3xl font-bold text-cyan-400 glow-text">Kami Flex – Custom Mail</h1>
+  <p class="text-gray-400">Generate Random or Custom Emails Instantly ⚡</p>
+
+  <!-- 📧 Email Display -->
+  <div class="bg-gray-800 p-3 rounded-xl flex justify-between items-center">
+    <span id="emailDisplay" class="text-yellow-400 font-semibold break-all">---</span>
+    <button id="copyBtn" class="bg-cyan-600 hover:bg-cyan-700 px-3 py-1 rounded-lg text-sm font-semibold">Copy</button>
+  </div>
+
+  <!-- 🎲 Buttons -->
+  <div class="grid grid-cols-2 gap-3">
+    <button id="randomBtn" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-xl font-semibold transition">🎲 Random</button>
+    <button id="customBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl font-semibold transition">🧩 Custom</button>
+  </div>
+
+  <!-- 🧩 Custom Input -->
+  <div id="customBox" class="hidden space-y-3">
+    <input id="customName" type="text" placeholder="Enter name (e.g. kamiflex)" class="w-full p-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+    <select id="domainSelect" class="w-full p-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-cyan-500"></select>
+    <button id="generateCustomBtn" class="w-full bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-xl font-semibold transition">✅ Generate Custom</button>
+  </div>
+
+  <!-- 📥 Inbox -->
+  <button onclick="window.location.href='temp.html'" class="w-full bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-xl font-semibold transition mt-3">
+    📥 Go to Inbox
+  </button>
+</div>
+
+<!-- ✅ Footer -->
+<footer class="text-center mt-10 text-sm text-gray-400">
+  💫 Powered by Kami Flex — 2025 💫
+</footer>
+
+<!-- ✅ Monetag -->
+<script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
+<meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
+
+<script>
+let currentEmail = "";
+
+// 🔔 Copy popup
+function showCopyPopup() {
+  const popup = document.getElementById('copyPopup');
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 1500);
+}
+
+// 📋 Copy email
+document.getElementById('copyBtn').addEventListener('click', () => {
+  if (currentEmail) {
+    navigator.clipboard.writeText(currentEmail);
+    showCopyPopup();
+  }
+});
+
+// 🎲 Random Email (API v3)
+document.getElementById('randomBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('randomBtn');
+  btn.innerHTML = '<div class="loader"></div>';
+  try {
+    const res = await fetch("https://api.internal.temp-mail.io/api/v3/email/new", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "application-name": "web",
+        "application-version": "4.0.0",
+        "x-cors-header": "iaWg3pchvFx48fY"
+      },
+      body: JSON.stringify({ min_name_length: 8, max_name_length: 10 })
+    });
+    const data = await res.json();
+    currentEmail = data.email || "Error generating";
+    document.getElementById("emailDisplay").textContent = currentEmail;
+  } catch {
+    alert("❌ Error generating random email");
+  }
+  btn.textContent = "🎲 Random";
+});
+
+// 🧩 Show Custom Section
+document.getElementById('customBtn').addEventListener('click', async () => {
+  const box = document.getElementById('customBox');
+  box.classList.toggle('hidden');
+
+  if (!box.classList.contains('hidden')) {
+    const domainSelect = document.getElementById('domainSelect');
+    domainSelect.innerHTML = "<option>Loading domains...</option>";
+    try {
+      const res = await fetch("https://api.internal.temp-mail.io/api/v4/domains", {
+        method: "GET",
+        headers: {
+          "accept": "application/json",
+          "application-name": "web",
+          "application-version": "4.0.0",
+          "x-cors-header": "iaWg3pchvFx48fY"
+        }
+      });
+      const data = await res.json();
+      domainSelect.innerHTML = "";
+      (data.domains || data).forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.name || d;
+        opt.textContent = d.name || d;
+        domainSelect.appendChild(opt);
+      });
+    } catch {
+      domainSelect.innerHTML = "<option>Error loading domains</option>";
+    }
+  }
+});
+
+// ✅ Generate Custom (v3 with v4 domain)
+document.getElementById('generateCustomBtn').addEventListener('click', async () => {
+  const name = document.getElementById('customName').value.trim();
+  const domain = document.getElementById('domainSelect').value;
+  if (!name || !domain) return alert("⚠️ Enter name and select domain");
+
+  const btn = document.getElementById('generateCustomBtn');
+  btn.innerHTML = '<div class="loader"></div>';
+
+  try {
+    const res = await fetch("https://api.internal.temp-mail.io/api/v3/email/new", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "application-name": "web",
+        "application-version": "4.0.0",
+        "x-cors-header": "iaWg3pchvFx48fY"
+      },
+      body: JSON.stringify({ name, domain })
+    });
+    const data = await res.json();
+    currentEmail = data.email || `${name}@${domain}`;
+    document.getElementById("emailDisplay").textContent = currentEmail;
+  } catch {
+    document.getElementById("emailDisplay").textContent = `${name}@${domain}`;
+  }
+
+  btn.textContent = "✅ Generate Custom";
+});
+</script>
+
+</body>
+</html>
