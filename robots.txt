@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kami-database.vercel.app/sitemap.xml
+Sitemap: https://kamiflex.pw//sitemap.xml
