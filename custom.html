@@ -22,23 +22,30 @@ body { font-family: 'Poppins', sans-serif; }
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 .glow-text { text-shadow: 0 0 15px rgba(0,255,255,0.8); }
-#copyPopup {
+#copyPopup, #errorPopup {
   position: fixed;
   top: 20px; right: 20px;
-  background: linear-gradient(90deg,#00ffff,#00ff99);
   color: black; padding: 8px 16px;
   border-radius: 10px; font-weight: bold;
   box-shadow: 0 0 20px rgba(0,255,255,0.6);
   opacity: 0; transform: translateY(-15px);
   transition: all .4s ease;
+  z-index: 9999;
 }
-#copyPopup.show { opacity: 1; transform: translateY(0); }
+#copyPopup {
+  background: linear-gradient(90deg,#00ffff,#00ff99);
+}
+#errorPopup {
+  background: linear-gradient(90deg,#ff5252,#ff9800);
+}
+#copyPopup.show, #errorPopup.show { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-6">
 
-<!-- ✅ Popup -->
+<!-- ✅ Popups -->
 <div id="copyPopup">✅ Copied!</div>
+<div id="errorPopup">⚠️ Enter name and select domain</div>
 
 <div class="card p-6 rounded-2xl w-full max-w-md space-y-5 text-center">
   <h1 class="text-3xl font-bold text-cyan-400 glow-text">Kami Flex – Custom Mail</h1>
@@ -86,6 +93,13 @@ function showCopyPopup() {
   const popup = document.getElementById('copyPopup');
   popup.classList.add('show');
   setTimeout(() => popup.classList.remove('show'), 1500);
+}
+
+// ⚠️ Error popup
+function showErrorPopup() {
+  const popup = document.getElementById('errorPopup');
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 2000);
 }
 
 // 📋 Copy email
@@ -152,11 +166,11 @@ document.getElementById('customBtn').addEventListener('click', async () => {
   }
 });
 
-// ✅ Generate Custom (v3 with v4 domain)
+// ✅ Generate Custom (styled error instead of alert)
 document.getElementById('generateCustomBtn').addEventListener('click', async () => {
   const name = document.getElementById('customName').value.trim();
   const domain = document.getElementById('domainSelect').value;
-  if (!name || !domain) return alert("⚠️ Enter name and select domain");
+  if (!name || !domain) return showErrorPopup();
 
   const btn = document.getElementById('generateCustomBtn');
   btn.innerHTML = '<div class="loader"></div>';
