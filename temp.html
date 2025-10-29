@@ -1,262 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>⚡ Temp Mail — Kami Flex ⚡</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kami Flex – Temp Mail</title>
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- ✅ Monetag Meta -->
 <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
 
 <style>
-body { background: linear-gradient(135deg,#0f0c29,#302b63,#24243e); color:#fff; font-family:'Inter',sans-serif; }
-.glass { background: rgba(255,255,255,0.04); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.06); border-radius:1rem; }
-.neon-text { background: linear-gradient(90deg,#ff7ad1,#7c5cff,#42d9ff); -webkit-background-clip:text; background-clip:text; color:transparent; }
-.center-loader { position:fixed; inset:0; display:grid; place-items:center; z-index:60; background:rgba(2,6,23,0.55); }
-@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.02);}100%{transform:scale(1);}}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.loader {
+  border: 4px solid rgba(255,255,255,0.15);
+  border-top: 4px solid #00b7ff;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+@keyframes spin { 100% { transform: rotate(360deg);} }
+.card {
+  background: linear-gradient(145deg, #111827, #1f2937);
+  box-shadow: 0 0 25px rgba(0,191,255,0.2);
+}
+.glow-text {
+  text-shadow: 0 0 15px rgba(0,191,255,0.7);
+}
+/* ✅ Copy animation */
+.copied {
+  background-color: #22c55e !important;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
 </style>
 </head>
-<body class="min-h-screen antialiased">
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-6">
 
-<!-- Full Loader -->
-<div id="fullLoader" class="center-loader hidden">
-<div class="flex flex-col items-center gap-4">
-<div style="border:4px solid rgba(255,255,255,0.12); border-top:4px solid #a855f7; border-radius:9999px; width:72px; height:72px; animation:spin 1s linear infinite;"></div>
-<div class="text-white/80">Loading…</div>
-</div>
+<!-- 🔝 Top Title -->
+<div class="w-full text-center mb-6">
+  <h1 class="text-4xl font-extrabold text-cyan-400 glow-text">💫 Kami Flex-TempMail 💫</h1>
 </div>
 
-<!-- Page container -->
-<div class="max-w-6xl mx-auto p-6">
+<div class="w-full max-w-3xl space-y-8">
 
-<header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-<div class="flex items-center gap-4">
-<button onclick="window.location.href='index.html'" class="px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm">⬅</button>
-<div class="w-14 h-14 rounded-xl flex items-center justify-center bg-gradient-to-tr from-pink-500 to-indigo-500 shadow-lg">
-<svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 8.5L12 3l9 5.5V17a2 2 0 0 1-2 2h-3v-5H8v5H5a2 2 0 0 1-2-2V8.5z" fill="white"/></svg>
-</div>
-<div>
-<h1 class="text-2xl md:text-3xl font-extrabold neon-text">⚡ Temp Mail <span class="text-white/70 font-semibold">by Kami Flex ⚡</span></h1>
-<p class="text-sm text-white/60 mt-1">Disposable temp-mail — generate, check inbox and read messages (10 minute expiry)</p>
-</div>
+  <!-- EMAIL GENERATOR -->
+  <div class="card rounded-2xl p-6 space-y-4">
+    <h2 class="text-xl font-bold text-green-400">Generate New Email</h2>
+    <button id="generateEmailBtn" class="w-full bg-cyan-600 hover:bg-cyan-700 px-4 py-3 rounded-xl font-semibold transition">⚙️ Generate Email</button>
+    <div class="space-y-2">
+      <p class="text-gray-400">Your Temporary Email:</p>
+      <div class="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+        <span id="generatedEmail" class="text-yellow-400 font-semibold break-all">---</span>
+        <button id="copyEmailBtn" class="bg-cyan-600 hover:bg-cyan-700 px-3 py-1 rounded-lg text-sm font-semibold transition">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📩 Custom Email Button -->
+  <button onclick="window.location.href='custom.html'"
+    class="w-full bg-purple-600 hover:bg-purple-700 px-4 py-3 rounded-2xl font-bold text-lg transition shadow-md">
+    🧩 Create Custom Email
+  </button>
+
+  <!-- INBOX -->
+  <div class="card rounded-2xl p-6 space-y-4">
+    <h2 class="text-xl font-bold text-green-400">📥 Inbox</h2>
+    <div class="flex gap-3">
+      <input id="emailInput" type="text" placeholder="Your temp email..." class="flex-1 p-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+      <button id="checkInboxBtn" class="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg font-semibold transition">Refresh</button>
+    </div>
+    <div id="messages" class="bg-gray-800 p-4 rounded-lg h-96 overflow-y-auto text-left space-y-3">
+      <p class="text-gray-400">No messages yet...</p>
+    </div>
+  </div>
+
 </div>
 
-<div class="flex items-center gap-3">
-<button id="generateBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg hover:scale-105 transition-transform">🎲 Generate Email</button>
-<button id="copyBtn" class="px-4 py-2 rounded-xl bg-green-500 text-black font-semibold hidden">📋 Copy</button>
-</div>
-</header>
-
-<main class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<!-- Left: Email & Actions -->
-<section class="md:col-span-1 glass p-6 rounded-2xl shadow-xl">
-<h2 class="text-lg font-semibold text-indigo-300 mb-3">Your Temp Email</h2>
-<div class="flex items-center gap-3">
-<input id="generatedEmail" readonly class="flex-1 px-3 py-2 rounded-lg bg-slate-900/60 border border-white/5 text-sm md:text-base break-all" value="—"/>
-</div>
-<p id="emailMsg" class="text-sm text-white/60 mt-3">Email auto-expires after 10 minutes.</p>
-<div class="mt-5 space-y-3">
-<button id="refreshInboxBtn" class="w-full px-4 py-2 rounded-lg bg-yellow-500 text-black font-semibold">📥 Refresh Inbox</button>
-<button id="clearBtn" class="w-full px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600">🧹 Clear</button>
-</div>
-<div class="mt-5 text-xs text-white/50">Status: <span id="statusText">Idle</span></div>
-</section>
-
-<!-- Middle: Inbox -->
-<section class="md:col-span-1 glass p-6 rounded-2xl shadow-xl overflow-hidden">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-lg font-semibold text-yellow-300">Inbox</h2>
-<span id="inboxCount" class="text-sm text-white/60">0</span>
-</div>
-<div id="inboxList" class="space-y-3 overflow-auto max-h-[60vh] pr-2">
-<div class="text-sm text-white/50">No inbox yet. Generate an email to start.</div>
-</div>
-</section>
-
-<!-- Right: Message Preview -->
-<section class="md:col-span-1 glass p-6 rounded-2xl shadow-xl">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-lg font-semibold text-pink-300">Message</h2>
-<div class="text-xs text-white/50">Preview</div>
-</div>
-<div id="messageCard" class="bg-slate-900/60 p-4 rounded-lg min-h-[180px] overflow-auto">
-<div id="noMessage" class="text-sm text-white/50">No message selected.</div>
-<div id="messageContent" class="hidden">
-<div class="mb-2">
-<div class="text-xs text-white/40">From</div>
-<div id="msgFrom" class="font-semibold"></div>
-</div>
-<div class="mb-2">
-<div class="text-xs text-white/40">Subject</div>
-<div id="msgSubject" class="font-semibold"></div>
-</div>
-<hr class="my-3 border-white/5"/>
-<div id="msgBody" class="prose prose-invert text-sm"></div>
-</div>
-</div>
-<div class="mt-4 flex gap-2">
-<button id="openRawBtn" class="flex-1 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500">Open Raw</button>
-<button id="downloadBtn" class="px-3 py-2 rounded-lg bg-green-600 hover:bg-green-500">Download</button>
-</div>
-</section>
-
-</main>
-<footer class="mt-8 text-center text-sm text-white/50">
-⚡ Powered by <span class="text-indigo-300 font-semibold">Kami Flex</span> ⚡
+<!-- ✅ Footer -->
+<footer class="text-center mt-10 text-sm text-gray-400">
+  💫 Powered by Kami Flex — 2025 💫
 </footer>
-</div>
 
-<!-- Toast -->
-<div id="toast" class="fixed right-6 bottom-6 hidden bg-black/80 text-white px-4 py-2 rounded-lg shadow-lg z-50"></div>
+<!-- ✅ Monetag Script -->
+<script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
 
-<!-- Gmail-style Raw Modal -->
-<div id="rawModal" class="hidden fixed inset-0 bg-black/80 items-center justify-center z-50">
-<div class="bg-slate-900 rounded-xl p-6 max-w-3xl w-full relative flex flex-col">
-<button id="rawModalClose" class="absolute top-3 left-3 px-3 py-1 rounded bg-gray-800 hover:bg-gray-700">⬅ Back</button>
-<div class="text-sm text-white/50 mb-1">From</div>
-<div id="modalFrom" class="font-semibold text-white mb-3">Unknown</div>
-<div class="text-sm text-white/50 mb-1">Subject</div>
-<div id="modalSubject" class="font-semibold text-white mb-3">(no subject)</div>
-<pre id="rawModalBody" class="bg-slate-800/60 p-3 rounded-lg overflow-auto max-h-[60vh] text-sm whitespace-pre-wrap break-words"></pre>
-<button id="rawModalCopy" class="mt-3 px-4 py-2 rounded-lg bg-green-500 text-black font-semibold">📋 Copy</button>
-</div>
-</div>
-
-<!-- API script -->
 <script>
-/* --- API logic + JS from previous step (connected fully) --- */
-const generateBtn = document.getElementById('generateBtn');
-const copyBtn = document.getElementById('copyBtn');
-const refreshInboxBtn = document.getElementById('refreshInboxBtn');
-const clearBtn = document.getElementById('clearBtn');
-const generatedEmail = document.getElementById('generatedEmail');
-const statusText = document.getElementById('statusText');
-const inboxList = document.getElementById('inboxList');
-const inboxCount = document.getElementById('inboxCount');
-const messageContent = document.getElementById('messageContent');
-const noMessage = document.getElementById('noMessage');
-const msgFrom = document.getElementById('msgFrom');
-const msgSubject = document.getElementById('msgSubject');
-const msgBody = document.getElementById('msgBody');
-const openRawBtn = document.getElementById('openRawBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-const fullLoader = document.getElementById('fullLoader');
-const toast = document.getElementById('toast');
-const rawModal = document.getElementById('rawModal');
-const rawModalBody = document.getElementById('rawModalBody');
-const rawModalClose = document.getElementById('rawModalClose');
-const rawModalCopy = document.getElementById('rawModalCopy');
-const modalSubject = document.getElementById('modalSubject');
-const modalFrom = document.getElementById('modalFrom');
+let currentEmail = "";
+let refreshInterval;
 
-let currentEmail='',currentInbox=[],currentMessage=null;
-
-function showToast(text,time=2000){ toast.innerText=text; toast.classList.remove('hidden'); setTimeout(()=>toast.classList.add('hidden'),time);}
-function setStatus(txt){statusText.innerText=txt;}
-function showFullLoader(show=true){fullLoader.classList.toggle('hidden',!show);}
-function escapeHtml(text){ if(!text && text!==0) return ''; return String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;"); }
-function looksLikeHtml(s){ return s && typeof s==='string' && /<\/?[a-z][\s\S]*>/i.test(s); }
-
-async function safeFetch(url,opts={},timeout=15000){
-  const controller=new AbortController();
-  const id=setTimeout(()=>controller.abort(),timeout);
-  try{ const res=await fetch(url,{signal:controller.signal,...opts}); clearTimeout(id); if(!res.ok) throw new Error('Network error: '+res.status); return await res.json(); }catch(err){ clearTimeout(id); throw err; }
-}
-
-async function generateEmail(){
-  showFullLoader(true); setStatus('Generating…');
-  try{
-    const data=await safeFetch('/api/tempmail?op=generate');
-    const email=data?.result?.email||data?.email||'';
-    if(!email){ setStatus('❌ No email'); showFullLoader(false); return showToast('API returned invalid email',3000);}
-    currentEmail=email;
-    generatedEmail.value=email;
-    copyBtn.classList.remove('hidden');
-    setStatus('✅ Email generated');
-    showToast('Email: '+email,2000);
-    await loadInbox();
-  }catch(err){ console.error(err); setStatus('❌ Error'); showToast(err.message||err,4000);} finally{ showFullLoader(false);}
-}
-
-copyBtn.addEventListener('click',()=>{ if(!currentEmail) return showToast('No email to copy'); navigator.clipboard.writeText(currentEmail).then(()=>{showToast('Copied'); copyBtn.innerText='✅ Copied'; setTimeout(()=>copyBtn.innerText='📋 Copy',1500);}).catch(()=>showToast('Copy failed')); });
-
-clearBtn.addEventListener('click',()=>{currentEmail=''; currentInbox=[]; currentMessage=null; generatedEmail.value='—'; inboxList.innerHTML='<div class="text-sm text-white/50">No inbox yet. Generate an email to start.</div>'; inboxCount.innerText=0; noMessage.classList.remove('hidden'); messageContent.classList.add('hidden'); copyBtn.classList.add('hidden'); setStatus('Cleared'); });
-
-async function loadInbox(){
-  if(!currentEmail) return showToast('Generate first');
-  setStatus('Loading inbox…'); inboxList.innerHTML='<div class="text-sm text-white/60">Loading…</div>';
-  try{
-    const data=await safeFetch('/api/tempmail?op=inbox&email='+encodeURIComponent(currentEmail));
-    let messages=[];
-    if(Array.isArray(data?.result)) messages=data.result;
-    else if(Array.isArray(data?.result?.messages)) messages=data.result.messages;
-    else if(Array.isArray(data?.messages)) messages=data.messages;
-    else if(Array.isArray(data)) messages=data;
-    currentInbox=messages||[];
-    renderInbox();
-  }catch(err){ console.error(err); inboxList.innerHTML='<div class="text-sm text-red-400">❌ Inbox load failed</div>'; setStatus('❌ Inbox error'); }
-}
-
-function renderInbox(){
-  inboxList.innerHTML='';
-  if(currentInbox.length===0){ inboxList.innerHTML='<div class="text-sm text-white/50">No messages yet.</div>'; inboxCount.innerText=0; setStatus('Inbox empty'); return; }
-  inboxCount.innerText=currentInbox.length;
-  currentInbox.forEach((m,idx)=>{
-    const from=m.from||m.sender||'Unknown';
-    const subject=m.subject||'(no subject)';
-    const mid=m.id||idx;
-    const time=m.time||m.date||'';
-    const li=document.createElement('div');
-    li.className='p-3 rounded-lg bg-slate-800 hover:bg-slate-700 cursor-pointer transition-colors';
-    li.innerHTML=`<div class="flex justify-between items-start gap-2"><div class="flex-1"><div class="text-sm text-white/50">${from}</div><div class="font-semibold mt-1">${escapeHtml(subject)}</div><div class="text-xs text-white/40 mt-1">${time}</div></div><div class="text-xs text-white/40 ml-2">#${mid}</div></div>`;
-    li.onclick=()=>loadMessage(mid,m);
-    inboxList.appendChild(li);
-  });
-  setStatus('Inbox loaded');
-}
-
-async function loadMessage(mid,msgObj=null){
-  noMessage.classList.add('hidden'); messageContent.classList.remove('hidden');
-  msgFrom.innerText=''; msgSubject.innerText=''; msgBody.innerHTML='Loading…';
-  try{
-    let msg=msgObj;
-    if(!msg){ const data=await safeFetch('/api/tempmail?op=message&email='+encodeURIComponent(currentEmail)+'&messageid='+encodeURIComponent(mid)); msg=data?.result||data; }
-    currentMessage=msg;
-    msgFrom.innerText=msg.from||msg.sender||'Unknown';
-    msgSubject.innerText=msg.subject||'(no subject)';
-    let body=msg.body||msg.html||msg.text||JSON.stringify(msg,null,2);
-    if(looksLikeHtml(body)) msgBody.innerHTML=body; else msgBody.innerText=body;
-    setStatus('Message loaded');
-  }catch(err){ console.error(err); msgBody.innerHTML='<div class="text-red-400">❌ Message load failed</div>'; setStatus('❌ Message error'); }
-}
-
-openRawBtn.addEventListener('click',()=>{
-  if(!currentMessage) return showToast('No message selected');
-  modalSubject.innerText=currentMessage.subject||'(no subject)';
-  modalFrom.innerText=currentMessage.from||currentMessage.sender||'Unknown';
-  let body=currentMessage.body||currentMessage.html||currentMessage.text||JSON.stringify(currentMessage,null,2);
-  rawModalBody.innerText=body;
-  rawModal.classList.remove('hidden');
+// Generate new email
+document.getElementById('generateEmailBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('generateEmailBtn');
+  btn.innerHTML = '<div class="loader"></div>';
+  try {
+    const res = await fetch("https://api.internal.temp-mail.io/api/v3/email/new", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "application-name": "web",
+        "application-version": "4.0.0",
+        "x-cors-header": "iaWg3pchvFx48fY"
+      },
+      body: JSON.stringify({min_name_length:10, max_name_length:10})
+    });
+    const data = await res.json();
+    currentEmail = data.email;
+    document.getElementById('generatedEmail').textContent = currentEmail;
+    document.getElementById('emailInput').value = currentEmail;
+    btn.textContent = "⚙️ Generate Email";
+    fetchMessages();
+    startAutoRefresh();
+  } catch (err) {
+    btn.textContent = "⚙️ Generate Email";
+    alert("❌ Error generating email.");
+  }
 });
 
-rawModalClose.addEventListener('click',()=>{ rawModal.classList.add('hidden'); });
-rawModalCopy.addEventListener('click',()=>{ navigator.clipboard.writeText(rawModalBody.innerText).then(()=>showToast('Copied')).catch(()=>showToast('Copy failed')); });
-
-downloadBtn.addEventListener('click',()=>{
-  if(!currentMessage) return showToast('No message selected');
-  const raw=currentMessage.body||currentMessage.html||currentMessage.text||JSON.stringify(currentMessage,null,2);
-  const blob=new Blob([raw],{type:'text/plain'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download=(currentMessage.subject?currentMessage.subject.replaceAll(/\s+/g,'_'):'message')+'.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  showToast('Downloaded');
+// ✅ Copy email with animation
+document.getElementById('copyEmailBtn').addEventListener('click', async () => {
+  const text = document.getElementById('generatedEmail').textContent;
+  const copyBtn = document.getElementById('copyEmailBtn');
+  if (text && text !== "---") {
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = "✅ Copied!";
+      copyBtn.classList.add("copied");
+      setTimeout(() => {
+        copyBtn.textContent = "Copy";
+        copyBtn.classList.remove("copied");
+      }, 1500);
+    } catch (err) {
+      alert("❌ Copy failed");
+    }
+  }
 });
 
-generateBtn.addEventListener('click',generateEmail);
-refreshInboxBtn.addEventListener('click',loadInbox);
+// Fetch messages
+async function fetchMessages() {
+  const email = document.getElementById('emailInput').value.trim();
+  if(!email) return;
+  const msgDiv = document.getElementById('messages');
+  msgDiv.innerHTML = "<p class='text-gray-400'>⏳ Loading messages...</p>";
+
+  try {
+    const res = await fetch(`https://api.internal.temp-mail.io/api/v3/email/${email}/messages`, {
+      method: "GET",
+      headers: {
+        "accept":"*/*",
+        "content-type":"application/json",
+        "application-name":"web",
+        "application-version":"4.0.0",
+        "x-cors-header":"iaWg3pchvFx48fY"
+      }
+    });
+    const data = await res.json();
+    msgDiv.innerHTML = "";
+    if(!Array.isArray(data) || data.length === 0) {
+      msgDiv.innerHTML = "<p class='text-gray-400'>📭 No messages yet.</p>";
+      return;
+    }
+
+    data.forEach(msg => {
+      const div = document.createElement('div');
+      div.className = "border border-gray-700 rounded-lg p-3 hover:bg-gray-700 transition cursor-pointer";
+      div.innerHTML = `
+        <p class="text-blue-400 font-semibold">From: ${msg.from}</p>
+        <p class="text-yellow-400 font-semibold">Subject: ${msg.subject}</p>
+        <p class="text-gray-300">${msg.intro || "No preview available..."}</p>
+      `;
+      div.addEventListener('click', () => openMessage(msg));
+      msgDiv.appendChild(div);
+    });
+  } catch (e) {
+    msgDiv.innerHTML = "<p class='text-red-400'>⚠️ Error fetching messages</p>";
+  }
+}
+
+// Open message modal
+function openMessage(msg) {
+  const modal = document.createElement('div');
+  modal.className = "fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50";
+  modal.innerHTML = `
+    <div class="bg-gray-900 text-white rounded-2xl shadow-xl p-6 w-11/12 max-w-2xl relative">
+      <button class="absolute top-2 right-3 text-red-400 font-bold text-lg" id="closeModal">✖</button>
+      <h3 class="text-2xl font-bold text-cyan-400 mb-2">${msg.subject}</h3>
+      <p class="text-sm text-gray-400 mb-4">From: ${msg.from}</p>
+      <div class="bg-gray-800 p-4 rounded-lg max-h-96 overflow-y-auto text-gray-200">${msg.body_html || msg.body_text || "No content"}</div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById('closeModal').addEventListener('click', ()=> modal.remove());
+}
+
+// Refresh inbox
+document.getElementById('checkInboxBtn').addEventListener('click', fetchMessages);
+
+// Auto refresh inbox every 15s
+function startAutoRefresh() {
+  if(refreshInterval) clearInterval(refreshInterval);
+  refreshInterval = setInterval(fetchMessages, 15000);
+}
 </script>
 
-<script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
 </body>
 </html>
