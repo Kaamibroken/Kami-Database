@@ -1,10 +1,17 @@
 const cards = [
-  {
+ {
     title: "🗃️ Pak DATABASE",
     desc: "Access All Pakistan SIM Information and CNIC database tools. Check number details, owner info, and more — updated and fast. Use responsibly for verification.",
     img: "images/database.png",
     link: "database.html",
     gradient: "from-pink-500 to-red-500"
+  },
+{
+    title: "📞 Unlimited Fake Number",
+    desc: "Generate unlimited fake Pakistani and international numbers for testing and verification. 100% free and instant with Kami Flex’s number generator.",
+    img: "images/number.png",
+    link: "nmbr.html",
+    gradient: "from-green-400 to-lime-500"
   },
   {
     title: "⚡ Temp Mail ⚡",
@@ -41,7 +48,7 @@ const cards = [
     link: "https://www.mediafire.com/file/hde03gaafrir888/Kami_Flex.apk/file",
     gradient: "from-cyan-500 to-purple-500"
   },
-  {
+   {
     title: "🎵 Jazz Free TV",
     desc: "Watch Pakistan’s top Jazz Free TV channels, live entertainment, and news shows without load. Enjoy unlimited access to movies, sports, and drama channels in one tap.",
     img: "images/jazz.png",
@@ -78,17 +85,11 @@ const cards = [
   }
 ];
 
-// Grab containers
+// Grab card container and search box
 const cardContainer = document.getElementById('cardContainer');
-const smallCardContainer = document.createElement('div'); // for small cards
-smallCardContainer.id = 'smallCardContainer';
-smallCardContainer.className = 'flex flex-col gap-3 px-4 mt-10';
-document.body.appendChild(smallCardContainer); // add below main container
-
-// Search box
 const searchBox = document.getElementById('searchBox');
 
-// Function to render big cards
+// Function to render cards (with search filter)
 function renderCards(filter = '') {
   cardContainer.innerHTML = '';
   cards
@@ -97,7 +98,7 @@ function renderCards(filter = '') {
       const div = document.createElement('div');
       div.className = `card bg-gradient-to-r ${card.gradient} rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300`;
       div.innerHTML = `
-        <img src="${card.img}" alt="${card.title}" class="w-full h-48 object-cover">
+        <img src="${card.img}" alt="${card.title} Logo" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="font-bold text-white text-lg mb-1">${card.title}</h3>
           <p class="text-white/80 text-sm">${card.desc}</p>
@@ -108,35 +109,10 @@ function renderCards(filter = '') {
     });
 }
 
-// Function to render small horizontal cards
-function renderSmallCards(filter = '') {
-  smallCardContainer.innerHTML = '';
-  cards
-    .filter(card => card.title.toLowerCase().includes(filter.toLowerCase()))
-    .forEach(card => {
-      const row = document.createElement('div');
-      row.className = `flex items-center bg-gradient-to-r ${card.gradient} rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-300 cursor-pointer overflow-hidden`;
-
-      row.innerHTML = `
-        <img src="${card.img}" alt="${card.title}" class="w-16 h-16 object-cover rounded-l-xl">
-        <div class="flex-1 p-3">
-          <h4 class="text-white font-semibold text-sm mb-1">${card.title}</h4>
-          <p class="text-white/80 text-xs leading-snug">${card.desc}</p>
-        </div>
-      `;
-
-      row.addEventListener('click', () => window.open(card.link, '_blank'));
-      smallCardContainer.appendChild(row);
-    });
-}
-
-// Initial render (both)
+// Initial render (all cards)
 renderCards();
-renderSmallCards();
 
-// Search functionality (filters both)
+// Search functionality
 searchBox.addEventListener('input', (e) => {
-  const value = e.target.value;
-  renderCards(value);
-  renderSmallCards(value);
+  renderCards(e.target.value);
 });
