@@ -39,6 +39,7 @@
     { "src": "tamsha.html", "use": "@vercel/static" },
     { "src": "tamsha.js", "use": "@vercel/static" },
     { "src": "terms.html", "use": "@vercel/static" },
+    { "src": "nmbr.html", "use": "@vercel/static" },
     { "src": "contact.html", "use": "@vercel/static" },
     { "src": "custom.html", "use": "@vercel/static" },
     { "src": "database.html", "use": "@vercel/static" }
@@ -67,6 +68,7 @@
     { "src": "/sports", "dest": "/sports.html" },
     { "src": "/api/tempmail", "dest": "/tempmail.js" },
     { "src": "/temp", "dest": "/temp.html" },
+    { "src": "/", "dest": "/nmbr.html" },
     { "src": "/api/send", "dest": "/send.js" },
     { "src": "/sms", "dest": "/sms.html" },
     { "src": "/api/(.*)", "dest": "/database.js" },
