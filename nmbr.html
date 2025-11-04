@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kami Flex – VIP OTP Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(90deg, #FFD700, #8E2DE2);
+      --primary-color: #FFD700;
+      --bg-dark: #0b0b0d;
+      --bg-light: #18181b;
+      --bg-lighter: #242427;
+      --border-color: #333;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+    .table-container { max-height: 70vh; overflow-y: auto; }
+
+    /* VIP gold shimmer */
+    .vip-title {
+      font-weight: 900;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #FFD700, #FFAA00, #8E2DE2, #4A00E0, #FFD700);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 7s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+    }
+
+    .btn-gradient {
+      background: var(--primary-gradient);
+      color: #000;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-gradient:hover { opacity: 0.9; }
+
+    .spinning { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal-content {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Poppins','sans-serif'] },
+          colors: {
+            'primary-color': 'var(--primary-color)',
+            'bg-dark': 'var(--bg-dark)',
+            'bg-light': 'var(--bg-light)',
+            'bg-lighter': 'var(--bg-lighter)',
+            'border-color': 'var(--border-color)',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bg-dark text-gray-100 min-h-screen p-4 font-sans">
+  <div class="max-w-6xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row justify-between items-center py-4 border-b border-border-color gap-4">
+      <h1 class="text-3xl font-extrabold vip-title">
+        💎 Kami Flex – VIP OTP Hub 💎
+      </h1>
+
+      <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <select id="countrySelect"
+          class="w-full sm:w-auto bg-bg-light border border-border-color text-gray-200 text-sm rounded-lg focus:ring-primary-color focus:border-primary-color p-1.5">
+          <option value="random">Select Country</option>
+        </select>
+
+        <button id="generateBtn"
+          class="px-3 py-1.5 bg-bg-light border border-border-color hover:border-primary-color text-white text-sm font-semibold rounded-lg shadow-lg transition duration-200 disabled:opacity-50 disabled:cursor-wait flex items-center justify-center">
+          <i data-feather="gift" class="w-4 h-4 mr-2"></i>
+          <span>Generate Number</span>
+        </button>
+
+        <button id="refreshSmsBtn"
+          class="px-4 py-1.5 btn-gradient rounded-lg shadow-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-wait">
+          <i id="refreshSmsIcon" data-feather="refresh-cw" class="w-4 h-4 mr-2"></i>
+          <span>Refresh SMS</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Everything else unchanged -->
+    <!-- keep all your existing sections, scripts, and API logic as they are -->
+  </div>
+</body>
+</html>
+  
+  <!-- ✅ Monetag Ads (No changes made) -->
+  <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
+  <script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
+
+</body>
+</html>
+
+        <!-- Number Display Card -->
+        <div class="bg-bg-light p-6 rounded-xl shadow-xl border-t-4 border-primary-color">
+            <h2 class="text-xl font-semibold text-gray-300 mb-2 flex items-center">
+                <i data-feather="smartphone" class="w-6 h-6 mr-2 text-primary-color"></i>
+                Selected Number
+            </h2>
+            <div id="randomNumberDisplay" class="py-2 text-center">
+                <p class="text-4xl sm:text-5xl font-mono font-bold text-primary-color">Loading...</p>
+            </div>
+            <p id="numberError" class="text-red-500 text-center hidden"></p>
+        </div>
+
+        <!-- SMS OTP Table Section -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-200 mb-4">
+                Recent Incoming OTP Messages (SMS)
+            </h2>
+            <div id="smsStatus" class="text-yellow-500 text-center py-4">Loading SMS data...</div>
+            
+            <div class="table-container bg-bg-light rounded-xl shadow-xl">
+                <table class="min-w-full divide-y divide-border-color">
+                    <thead class="bg-bg-lighter sticky top-0 z-10">
+                        <tr>
+                            <th class="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden sm:table-cell">Timestamp</th>
+                            <th class="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Country / Phone</th>
+                            <th class="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">Service</th>
+                            <th class="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
+                            <th class="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Analyze</th>
+                        </tr>
+                    </thead>
+                    <tbody id="otpTableBody" class="divide-y divide-border-color">
+                        <!-- Rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="smsError" class="text-red-500 text-center pt-4 hidden"></p>
+        </section>
+
+    </div>
+
+    <!-- AI Analysis Modal -->
+    <div id="aiModal" class="modal-backdrop" onclick="closeAiModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold gemini-title">AI Analysis</h3>
+                <button onclick="closeAiModal()" class="text-gray-400 hover:text-white">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="aiModalContent" class="text-gray-300 space-y-4">
+                <!-- AI result will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Endpoints
+        const CORS_PROXY = "https://corsproxy.io/?"; 
+        const API_NUMBERS = CORS_PROXY + encodeURIComponent("https://www.kamibroken.pw/api/otp?type=numbers");
+        const API_SMS = CORS_PROXY + encodeURIComponent("https://www.kamibroken.pw/api/otp?type=sms&iDisplayLength=10000");
+
+        // UI Element IDs
+        const generateBtn = document.getElementById('generateBtn');
+        const refreshSmsBtn = document.getElementById('refreshSmsBtn');
+        const refreshSmsIcon = document.getElementById('refreshSmsIcon');
+        const countrySelect = document.getElementById('countrySelect');
+        const randomNumberDisplay = document.getElementById('randomNumberDisplay');
+        const otpTableBody = document.getElementById('otpTableBody');
+        const smsStatus = document.getElementById('smsStatus');
+        const numberError = document.getElementById('numberError');
+        const smsError = document.getElementById('smsError');
+        const geminiKeyInput = document.getElementById('geminiKey');
+        const aiModal = document.getElementById('aiModal');
+        const aiModalContent = document.getElementById('aiModalContent');
+        
+        let allNumbersData = [];
+
+        /**
+         * Utility function to safely extract the country name.
+         */
+        function extractCountryName(groupString) {
+            if (!groupString || typeof groupString !== 'string') return 'Unknown Country';
+            return groupString.split('-')[0].trim();
+        }
+        
+        /**
+         * ✅ FIX: Masks a phone number (e.g., 1234XXXX890)
+         */
+        function maskNumber(numberStr) {
+            if (!numberStr || typeof numberStr !== 'string' || numberStr.length <= 7) {
+                return numberStr || 'N/A';
+            }
+            const firstFour = numberStr.substring(0, 4);
+            const lastThree = numberStr.substring(numberStr.length - 3);
+            const middleLength = numberStr.length - 7;
+            const middleMask = '×'.repeat(middleLength > 0 ? middleLength : 0);
+            
+            return `${firstFour}${middleMask}${lastThree}`;
+        }
+
+        /**
+         * Sets the loading state for the SMS refresh button.
+         */
+        function setSmsLoading(isLoading) {
+            refreshSmsBtn.disabled = isLoading;
+            refreshSmsBtn.querySelector('span').textContent = isLoading ? 'Loading SMS...' : 'Refresh SMS';
+            refreshSmsIcon.classList.toggle('spinning', isLoading);
+        }
+
+        /**
+         * Fetches the entire list of numbers once and populates the filter.
+         */
+        async function fetchNumbersList() {
+            generateBtn.disabled = true;
+            randomNumberDisplay.innerHTML = '<p class="text-lg font-mono font-bold text-primary-color">Loading number list...</p>';
+            numberError.classList.add('hidden');
+
+            try {
+                const response = await fetch(API_NUMBERS);
+                if (!response.ok) throw new Error(`Network response was not ok (${response.status})`);
+                const data = await response.json();
+
+                if (data && data.aaData && data.aaData.length > 0) {
+                    allNumbersData = data.aaData.filter(row => row.length > 2 && row[2] && row[2].trim().length > 0);
+                    
+                    if (allNumbersData.length === 0) {
+                        throw new Error("No valid phone numbers found.");
+                    }
+                    
+                    populateCountryFilter(allNumbersData);
+                    displayNewNumber(); // Display a random one immediately
+                    
+                } else {
+                    throw new Error("API data is empty or malformed.");
+                }
+            } catch (error) {
+                console.error("Error fetching number list:", error);
+                randomNumberDisplay.innerHTML = '<p class="text-xl font-mono font-bold text-red-500">Error loading list</p>';
+                numberError.textContent = `Could not load numbers: ${error.message}.`;
+                numberError.classList.remove('hidden');
+            } finally {
+                generateBtn.disabled = false;
+            }
+        }
+        
+        /**
+         * Populates the country select dropdown
+         */
+        function populateCountryFilter(validData) {
+            const countries = [...new Set(validData.map(row => extractCountryName(row[0])))].sort();
+            
+            let countryOptions = '<option value="random">Select Country</option>';
+            countries.forEach(country => {
+                countryOptions += `<option value="${country}">${country}</option>`;
+            });
+            countrySelect.innerHTML = countryOptions;
+        }
+
+        /**
+         * ✅ FIX: Displays a new FULL (unmasked) number based on the filter.
+         */
+        function displayNewNumber() {
+            if (allNumbersData.length === 0) {
+                numberError.textContent = 'Number list is empty. Please refresh.';
+                numberError.classList.remove('hidden');
+                return;
+            }
+            
+            const selectedCountry = countrySelect.value;
+            let numberPool = allNumbersData;
+            
+            if (selectedCountry !== 'random') {
+                numberPool = allNumbersData.filter(row => extractCountryName(row[0]) === selectedCountry);
+            }
+            
+            if (numberPool.length === 0) {
+                randomNumberDisplay.innerHTML = `<p class="text-xl font-mono font-bold text-red-500">No numbers found</p>`;
+                numberError.textContent = `No numbers available for ${selectedCountry}.`;
+                numberError.classList.remove('hidden');
+                return;
+            }
+            
+            numberError.classList.add('hidden');
+            const randomIndex = Math.floor(Math.random() * numberPool.length);
+            const selectedRow = numberPool[randomIndex];
+            
+            const country = extractCountryName(selectedRow[0]);
+            const phoneNumber = selectedRow[2]; // Use the full number
+
+            randomNumberDisplay.innerHTML = `
+                <span class="text-xl font-semibold text-gray-400 block">${country}</span>
+                <span class="text-4xl sm:text-5xl font-mono font-bold text-primary-color">${phoneNumber}</span>
+            `;
+        }
+
+        /**
+         * ✅ FIX: Fetches and displays the list of SMS OTPs with MASKED numbers.
+         */
+        async function fetchSMS() {
+            setSmsLoading(true);
+            otpTableBody.innerHTML = '';
+            smsStatus.textContent = 'Loading SMS data...';
+            smsError.classList.add('hidden');
+
+            try {
+                const response = await fetch(API_SMS);
+                if (!response.ok) throw new Error(`Network response was not ok (${response.status})`);
+                const data = await response.json();
+
+                if (data && data.aaData) {
+                    const validSMS = data.aaData.filter(row => row.length >= 5 && typeof row[0] === 'string' && row[0].includes('-'));
+
+                    if (validSMS.length === 0) {
+                        smsStatus.textContent = 'No recent OTP messages found.';
+                        return;
+                    }
+
+                    let html = '';
+                    validSMS.forEach(row => {
+                        const timestamp = row[0];
+                        const countryGroup = row[1];
+                        const country = extractCountryName(countryGroup);
+                        const phone = row[2];
+                        const maskedPhone = maskNumber(phone); // Mask the number here
+                        const service = row[3];
+                        const fullMessage = row[4];
+                        
+                        const formattedMessage = fullMessage.replace(/\n/g, '<br>');
+                        const otpMatch = fullMessage.match(/(\b\d{3}-\d{3}\b|\b\d{3} \d{3}\b|\b\d{3,6}\b)/);
+                        const otpCode = otpMatch ? `<span class="text-primary-color font-extrabold">${otpMatch[0]}</span>` : 'N/A';
+                        
+                        // Create a safe string for the onclick function
+                        const safeMessage = fullMessage.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, " ");
+
+                        html += `
+                            <tr class="hover:bg-bg-lighter transition duration-150">
+                                <td class="px-3 py-3 text-sm text-gray-400 hidden sm:table-cell">${timestamp}</td>
+                                <td class="px-3 py-3 text-sm font-mono text-gray-300">
+                                    <span class="text-xs font-semibold text-primary-color block">${country}</span>
+                                    ${maskedPhone} <!-- Use masked number -->
+                                </td>
+                                <td class="px-3 py-3 text-sm text-gray-400 hidden md:table-cell">${service}</td>
+                                <td class="px-3 py-3 text-sm text-gray-200">
+                                    <div class="space-y-1">
+                                        <span class="block">${formattedMessage}</span>
+                                        <span class="block pt-1 text-xs text-gray-500">Extracted OTP: ${otpCode}</span>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-3 text-center">
+                                    <button onclick="openAiAnalysis('${safeMessage}')" class="p-2 text-primary-color hover:text-white bg-bg-lighter rounded-md">
+                                        <i data-feather="cpu" class="w-5 h-5"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    otpTableBody.innerHTML = html;
+                    feather.replace(); // Refresh icons for AI buttons
+                    const totalRecords = data.iTotalDisplayRecords || validSMS.length;
+                    smsStatus.textContent = `Displaying ${validSMS.length} of ${totalRecords} total records.`;
+
+                } else {
+                    throw new Error("SMS API data is empty or malformed.");
+                }
+            } catch (error) {
+                console.error("Error fetching SMS data:", error);
+                smsStatus.textContent = '';
+                smsError.textContent = `Could not load SMS messages: ${error.message}.`;
+                smsError.classList.remove('hidden');
+            } finally {
+                setSmsLoading(false);
+            }
+        }
+        
+        // --- NEW: Gemini AI Functions ---
+        
+        function openAiAnalysis(message) {
+            const apiKey = geminiKeyInput.value;
+            if (!apiKey) {
+                aiModalContent.innerHTML = `
+                    <p class="text-red-400">Please enter your Gemini API Key in the input field at the top of the page first.</p>
+                `;
+                aiModal.classList.add('show');
+                return;
+            }
+            
+            aiModalContent.innerHTML = `
+                <p class="font-semibold text-gray-400">Original Message:</p>
+                <p class="p-3 bg-bg-dark rounded-lg text-sm">"${message}"</p>
+                <p class="font-semibold text-gray-400 mt-4">AI Analysis:</p>
+                <div class="flex items-center justify-center h-20">
+                    <div class="w-8 h-8 border-4 border-primary-color border-t-transparent rounded-full spinning"></div>
+                </div>
+            `;
+            aiModal.classList.add('show');
+            analyzeWithGemini(message, apiKey);
+        }
+        
+        function closeAiModal() {
+            aiModal.classList.remove('show');
+        }
+
+        async function analyzeWithGemini(message, apiKey) {
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const systemPrompt = "You are an expert message analyzer. Analyze the following SMS message. First, state its purpose (e.g., 'This is a login code', 'This is a marketing alert', 'This is a potential scam'). Second, extract any useful information, like the service name or the OTP code. Be concise and use simple bullet points.";
+            const userQuery = message;
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+            
+            try {
+                // Exponential backoff
+                let response;
+                let delay = 1000;
+                for (let i = 0; i < 3; i++) { // Retry up to 3 times
+                    response = await fetch(GEMINI_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) break; // Success
+                    if (response.status === 429 || response.status >= 500) {
+                        // Throttling or server error, wait and retry
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        // Don't retry on client errors (4xx) other than 429
+                        break;
+                    }
+                }
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`API Error ${response.status}: ${errorText}`);
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    // Format text for HTML (replace newlines with <br>)
+                    const formattedText = text.replace(/\n/g, '<br>');
+                    aiModalContent.innerHTML = `
+                        <p class="font-semibold text-gray-400">Original Message:</p>
+                        <p class="p-3 bg-bg-dark rounded-lg text-sm">"${message}"</p>
+                        <p class="font-semibold text-gray-400 mt-4">AI Analysis:</p>
+                        <div class="p-3 bg-bg-dark rounded-lg text-sm">${formattedText}</div>
+                    `;
+                } else {
+                    throw new Error("No text content found in Gemini response.");
+                }
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                aiModalContent.innerHTML = `
+                    <p class="font-semibold text-gray-400">Original Message:</p>
+                    <p class="p-3 bg-bg-dark rounded-lg text-sm">"${message}"</p>
+                    <p class="font-semibold text-red-400 mt-4">Analysis Failed:</p>
+                    <p class="p-3 bg-red-900 bg-opacity-30 text-red-300 rounded-lg text-sm">${error.message}</p>
+                `;
+            }
+        }
+        
+        // --- End Gemini Functions ---
+
+        // Initial data load
+        document.addEventListener('DOMContentLoaded', () => {
+            feather.replace(); // Load initial icons
+            fetchNumbersList(); // Fetch number list once
+            fetchSMS(); // Fetch SMS list once
+            
+            // Add event listeners
+            generateBtn.addEventListener('click', displayNewNumber);
+            refreshSmsBtn.addEventListener('click', fetchSMS);
+        });
+    </script>
+</body>
+</html>
+
