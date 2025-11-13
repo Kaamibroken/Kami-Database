@@ -84,6 +84,7 @@
     { "src": "/", "dest": "/terms.html" },
     { "src": "/", "dest": "/custom.html" },
     { "src": "/", "dest": "/robots.txt" },
+    { "src": "//api/database", "dest": "/database.js" },
     { "src": "/database", "dest": "/database.html" }
   ]
 }
