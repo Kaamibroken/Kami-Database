@@ -1,134 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kami Flex SIM Database</title>
-
-  <!-- ✅ Monetag verification -->
-  <meta name="monetag" content="b805f1bd7c6023d0341a4d15bd8fe547">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kami Flex – SIM Database</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     body {
       background: linear-gradient(270deg, #7f5af0, #2cb67d, #00c6ff, #ff5f6d);
       background-size: 800% 800%;
-      animation: gradientShift 15s ease infinite;
-      font-family: sans-serif;
+      animation: bgShift 15s ease infinite;
     }
-    @keyframes gradientShift {
+    @keyframes bgShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .kami-title {
-      text-shadow: 0px 0px 20px rgba(127,90,240,0.8), 
-                   0px 0px 40px rgba(44,182,125,0.8);
-    }
-    .loading-dots span { animation: blink 1.5s infinite; }
-    .loading-dots span:nth-child(2) { animation-delay: 0.3s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.6s; }
-    @keyframes blink { 0%,80%,100% {opacity:0;} 40%{opacity:1;} }
+
     .spinner {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #ff5f6d;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid #fff;
       border-radius: 50%;
-      width: 40px; height: 40px;
       animation: spin 1s linear infinite;
-      margin: 0 auto 12px auto;
+      margin: auto;
     }
-    @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
-    #errorMsg, #phoneError {
-      color:#ff6b6b; font-weight:bold; display:none; margin-bottom:8px; text-align:center;
+
+    @keyframes spin {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6">
 
-<!-- ✅ MAIN SCREEN ONLY -->
-<div id="mainScreen" class="w-full max-w-3xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 relative">
-  <h1 class="text-4xl kami-title font-extrabold text-center mb-8 text-white tracking-wider">
-    ⚡ Kami Flex <br> SIM Database ⚡
-  </h1>
+<body class="min-h-screen flex justify-center items-center p-6">
 
-  <!-- Input & Button -->
-  <div class="flex gap-3 mb-2">
-    <input id="phoneInput" type="text" placeholder="Enter phone number (03xxxxxxxxx)" 
-           class="flex-1 px-4 py-3 rounded-lg border border-white/30 bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400" />
-    <button id="searchBtn" 
-            class="px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:opacity-90 text-white font-semibold shadow-lg">
-      🔍 Search
-    </button>
+  <div class="w-full max-w-3xl bg-white/10 backdrop-blur-xl shadow-2xl rounded-2xl p-8 border border-white/20">
+    
+    <h1 class="text-4xl text-white text-center font-extrabold mb-6 drop-shadow-lg">
+      ⚡ Kami Flex – SIM Database ⚡
+    </h1>
+
+    <!-- Input -->
+    <div class="flex gap-3 mb-3">
+      <input
+        id="phoneInput"
+        type="text"
+        placeholder="03XXXXXXXXX"
+        class="flex-1 px-4 py-3 bg-white/20 text-white border border-white/30 rounded-lg placeholder-gray-200 focus:ring-2 focus:ring-pink-400 outline-none"
+      />
+      <button
+        id="searchBtn"
+        class="px-5 py-3 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:opacity-90"
+      >
+        🔍 Search
+      </button>
+    </div>
+
+    <p id="errorMsg" class="text-red-300 text-center mb-3 hidden">⚠️ Enter phone number!</p>
+
+    <!-- Loading -->
+    <div id="loading" class="hidden text-center mt-4">
+      <div class="spinner"></div>
+      <p class="text-white font-semibold mt-2">Searching...</p>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-6 space-y-4"></div>
+
   </div>
-  <p id="phoneError" class="text-red-400 font-semibold mb-4 hidden">⚠️ Please enter a phone number!</p>
 
-  <!-- Loading -->
-  <div id="loadingArea" class="hidden text-center mt-6 text-white text-xl font-bold">
-    <div class="spinner"></div>
-    <p>Searching<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
-  </div>
+  <script>
+    const phoneInput = document.getElementById("phoneInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const errorMsg = document.getElementById("errorMsg");
+    const loading = document.getElementById("loading");
+    const results = document.getElementById("results");
 
-  <!-- Results -->
-  <div id="resultArea" class="space-y-4 mt-6"></div>
-</div>
+    searchBtn.addEventListener("click", async () => {
+      const phone = phoneInput.value.trim();
+      if (!phone) {
+        errorMsg.classList.remove("hidden");
+        return;
+      }
 
-<script>
-// SIM DATABASE LOGIC
-const searchBtn = document.getElementById("searchBtn");
-const phoneInput = document.getElementById("phoneInput");
-const phoneError = document.getElementById("phoneError");
-const loadingArea = document.getElementById("loadingArea");
-const resultArea = document.getElementById("resultArea");
+      errorMsg.classList.add("hidden");
+      results.innerHTML = "";
+      loading.classList.remove("hidden");
 
-searchBtn.addEventListener("click", async () => {
-  const phone = phoneInput.value.trim();
-  if (!phone) {
-    phoneError.style.display = "block";
-    return;
-  }
-  phoneError.style.display = "none";
-  resultArea.innerHTML = "";
-  loadingArea.classList.remove("hidden");
+      try {
+        const res = await fetch(`/api/search?phone=${phone}`);
+        const data = await res.json();
+        loading.classList.add("hidden");
 
-  try {
-    const res = await fetch(`/api/search?phone=${phone}`);
-    const data = await res.json();
-    loadingArea.classList.add("hidden");
+        if (data.records && data.records.length > 0) {
+          data.records.forEach(rec => {
+            const card = document.createElement("div");
+            card.className =
+              "p-5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl shadow-lg border border-white/20";
+            card.innerHTML = `
+              <p><b>👤 Name:</b> ${rec.Name}</p>
+              <p><b>📱 Mobile:</b> ${rec.Mobile}</p>
+              <p><b>🆔 CNIC:</b> ${rec.CNIC}</p>
+              <p><b>🌍 Country:</b> ${rec.Country}</p>
+              <p class="mb-3"><b>🏠 Address:</b> ${rec.Address}</p>
+              <button class="copyBtn bg-black/40 px-3 py-2 rounded-lg hover:bg-black/60">📋 Copy</button>
+            `;
 
-    if (data.records && data.records.length > 0) {
-      data.records.forEach((record) => {
-        const card = document.createElement("div");
-        card.className = `p-6 rounded-xl shadow-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 text-white border border-white/20`;
-        card.innerHTML = `
-          <p class="mb-1"><strong>👤 Name:</strong> ${record.Name || "N/A"}</p>
-          <p class="mb-1"><strong>📱 Mobile:</strong> ${record.Mobile || "N/A"}</p>
-          <p class="mb-1"><strong>🌍 Country:</strong> ${record.Country || "N/A"}</p>
-          <p class="mb-1"><strong>🆔 CNIC:</strong> ${record.CNIC || "N/A"}</p>
-          <p class="mb-3"><strong>🏠 Address:</strong> ${record.Address || "N/A"}</p>
-          <button onclick="copyDetails(this)" class="px-4 py-2 rounded-lg bg-black/40 hover:bg-black/60 text-white">📋 Copy</button>
-        `;
-        resultArea.appendChild(card);
-      });
-    } else {
-      resultArea.innerHTML = `<p class="text-red-300 font-semibold text-center">❌ No record found.</p>`;
-    }
-  } catch (error) {
-    loadingArea.classList.add("hidden");
-    resultArea.innerHTML = `<p class="text-red-300 font-semibold text-center">⚠️ Error fetching data.</p>`;
-  }
-});
+            card.querySelector(".copyBtn").onclick = () => {
+              navigator.clipboard.writeText(card.innerText);
+            };
 
-// ✅ Copy function
-function copyDetails(btn){
-  const text = btn.parentElement.innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerText = "✅ Copied!";
-  setTimeout(()=>{ btn.innerText="📋 Copy"; },2000);
-}
-</script>
-
-<!-- ✅ Extra Ads Script at bottom -->
-<script src="https://fpyf8.com/88/tag.min.js" data-zone="174168" async data-cfasync="false"></script>
-
+            results.appendChild(card);
+          });
+        } else {
+          results.innerHTML =
+            `<p class="text-red-300 text-center font-semibold">❌ No record found.</p>`;
+        }
+      } catch (e) {
+        loading.classList.add("hidden");
+        results.innerHTML =
+          `<p class="text-red-300 text-center font-semibold">⚠️ Failed to fetch data.</p>`;
+      }
+    });
+  </script>
 </body>
 </html>
