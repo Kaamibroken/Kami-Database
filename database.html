@@ -1,130 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kami Flex – SIM Database</title>
+  <title>Kami Flex SIM Search</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    body {
-      background: linear-gradient(270deg, #7f5af0, #2cb67d, #00c6ff, #ff5f6d);
-      background-size: 800% 800%;
-      animation: bgShift 15s ease infinite;
-    }
-    @keyframes bgShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255,255,255,0.3);
-      border-top: 4px solid #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 
-<body class="min-h-screen flex justify-center items-center p-6">
+<body class="bg-gray-900 text-white p-6">
 
-  <div class="w-full max-w-3xl bg-white/10 backdrop-blur-xl shadow-2xl rounded-2xl p-8 border border-white/20">
-    
-    <h1 class="text-4xl text-white text-center font-extrabold mb-6 drop-shadow-lg">
-      ⚡ Kami Flex – SIM Database ⚡
-    </h1>
+  <h1 class="text-3xl font-bold mb-4">Kami Flex SIM Database</h1>
 
-    <!-- Input -->
-    <div class="flex gap-3 mb-3">
-      <input
-        id="phoneInput"
-        type="text"
-        placeholder="03XXXXXXXXX"
-        class="flex-1 px-4 py-3 bg-white/20 text-white border border-white/30 rounded-lg placeholder-gray-200 focus:ring-2 focus:ring-pink-400 outline-none"
-      />
-      <button
-        id="searchBtn"
-        class="px-5 py-3 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:opacity-90"
-      >
-        🔍 Search
-      </button>
-    </div>
+  <div class="p-5 bg-white/10 rounded-xl max-w-xl">
+    <input id="phone" class="w-full p-3 bg-black/20 rounded-lg" placeholder="03XXXXXXXXX">
 
-    <p id="errorMsg" class="text-red-300 text-center mb-3 hidden">⚠️ Enter phone number!</p>
-
-    <!-- Loading -->
-    <div id="loading" class="hidden text-center mt-4">
-      <div class="spinner"></div>
-      <p class="text-white font-semibold mt-2">Searching...</p>
-    </div>
-
-    <!-- Results -->
-    <div id="results" class="mt-6 space-y-4"></div>
-
+    <button onclick="searchAPI()" class="mt-3 w-full p-3 bg-green-500 text-black rounded-lg font-bold">
+      Search
+    </button>
   </div>
 
+  <div id="loading" class="hidden text-center mt-6">
+    <p class="text-xl">Loading...</p>
+  </div>
+
+  <div id="results" class="mt-6 space-y-3"></div>
+
   <script>
-    const phoneInput = document.getElementById("phoneInput");
-    const searchBtn = document.getElementById("searchBtn");
-    const errorMsg = document.getElementById("errorMsg");
-    const loading = document.getElementById("loading");
-    const results = document.getElementById("results");
+    async function searchAPI() {
+      const phone = document.getElementById("phone").value;
+      const loading = document.getElementById("loading");
+      const results = document.getElementById("results");
 
-    searchBtn.addEventListener("click", async () => {
-      const phone = phoneInput.value.trim();
-      if (!phone) {
-        errorMsg.classList.remove("hidden");
-        return;
-      }
-
-      errorMsg.classList.add("hidden");
       results.innerHTML = "";
       loading.classList.remove("hidden");
 
       try {
         const res = await fetch(`/api/search?phone=${phone}`);
         const data = await res.json();
+
         loading.classList.add("hidden");
 
-        if (data.records && data.records.length > 0) {
-          data.records.forEach(rec => {
-            const card = document.createElement("div");
-            card.className =
-              "p-5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl shadow-lg border border-white/20";
-            card.innerHTML = `
-              <p><b>👤 Name:</b> ${rec.Name}</p>
-              <p><b>📱 Mobile:</b> ${rec.Mobile}</p>
-              <p><b>🆔 CNIC:</b> ${rec.CNIC}</p>
-              <p><b>🌍 Country:</b> ${rec.Country}</p>
-              <p class="mb-3"><b>🏠 Address:</b> ${rec.Address}</p>
-              <button class="copyBtn bg-black/40 px-3 py-2 rounded-lg hover:bg-black/60">📋 Copy</button>
-            `;
-
-            card.querySelector(".copyBtn").onclick = () => {
-              navigator.clipboard.writeText(card.innerText);
-            };
-
-            results.appendChild(card);
-          });
-        } else {
-          results.innerHTML =
-            `<p class="text-red-300 text-center font-semibold">❌ No record found.</p>`;
+        if (!data.records) {
+          results.innerHTML = `<p class='text-red-400'>No record found</p>`;
+          return;
         }
-      } catch (e) {
+
+        data.records.forEach(r => {
+          results.innerHTML += `
+            <div class="p-4 bg-white/10 rounded-lg">
+              <p><b>Name:</b> ${r.Name}</p>
+              <p><b>Mobile:</b> ${r.Mobile}</p>
+              <p><b>CNIC:</b> ${r.CNIC}</p>
+              <p><b>Address:</b> ${r.Address}</p>
+            </div>
+          `;
+        });
+
+      } catch (err) {
         loading.classList.add("hidden");
-        results.innerHTML =
-          `<p class="text-red-300 text-center font-semibold">⚠️ Failed to fetch data.</p>`;
+        results.innerHTML = `<p class='text-red-400'>Error fetching data</p>`;
       }
-    });
+    }
   </script>
+
 </body>
 </html>
