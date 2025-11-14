@@ -13,9 +13,16 @@ app.get("/api/search", async (req, res) => {
     if (!phone) {
       return res.status(400).json({ error: "Phone number is required" });
     }
-    const response = await fetch(`https://api.impossible-world.xyz/api/data?phone=${phone}`);
+
+    const apiUrl = 
+      "https://api.allorigins.win/raw?url=" +
+      encodeURIComponent(`https://api.impossible-world.xyz/api/data?phone=${phone}`);
+
+    const response = await fetch(apiUrl);
     const data = await response.json();
+    
     res.json(data);
+
   } catch (err) {
     res.status(500).json({ error: "Server Error", details: err.message });
   }
